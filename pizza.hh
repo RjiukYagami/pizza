@@ -51,7 +51,7 @@ public:
   //static_assert(check_duplicates<Kinds ..., Kinds ...>(), "duplicates!");
 
   template<typename Kind> struct make_pizza {
-      static_assert(check_duplicates<Kinds ..., Kinds ...>() == 1, check_duplicates<Kinds ..., Kinds ...>());
+      static_assert(check_duplicates<Kinds ..., Kinds ...>() == 1, "wtf");
       static_assert(count_kind<Kind, Kinds ...>() == 1, "There is no such a pizza name in menu!");
       using type = Pizza<(std::is_same<Kind, Kinds>::value ? default_slices_count : 0) ...>;
    };
