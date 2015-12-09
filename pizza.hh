@@ -21,7 +21,7 @@ private:
    }
  
    template<typename... Types1, typename... Types2> static constexpr bool check_duplicates() {
-      return ((count_kind<Types1, Types2 ...>() == 1) + ...);
+      return (1 && ... && (count_kind<Types1, Types2 ...>() == 1));
    }
 
    template<size_t... Slices> struct Pizza {
