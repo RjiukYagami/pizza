@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <array>
+#include <typeinfo>
 
 
 #include <iostream>
@@ -16,6 +17,8 @@ private:
    static constexpr size_t default_slices_count = 8;
 
    template<typename Kind, typename... Menu> static constexpr size_t count_kind() {
+      cout<<"Witam z count_kind()\n";
+      cout<<typeid(Kind).name()<<"  ---\n";
       return (std::is_same<Kind, Menu>::value + ...);
    }
  
@@ -51,6 +54,7 @@ public:
   //static_assert(check_duplicates<Kinds ..., Kinds ...>(), "duplicates!");
 
   template<typename Kind> struct make_pizza {
+      static_assert(count_duplicates<Kind ..., Kind ...>() == false, "wtf");
       static_assert(count_kind<Kind, Kinds ...>() == 1, "There is no such a pizza name in menu!");
       using type = Pizza<(std::is_same<Kind, Kinds>::value ? default_slices_count : 0) ...>;
    };
