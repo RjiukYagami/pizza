@@ -17,13 +17,10 @@ private:
    static constexpr size_t default_slices_count = 8;
 
    template<typename Kind, typename... Menu> static constexpr size_t count_kind() {
-      std::cout<<"Witam z count_kind()\n";
-      std::cout<<typeid(Kind).name()<<"  ---\n";
       return (std::is_same<Kind, Menu>::value + ...);
    }
  
    template<typename... Types1, typename... Types2> static constexpr bool check_duplicates() {
-
       return ((count_kind<Types1, Types2 ...>() == 1) && ...);
    }
 
@@ -54,7 +51,7 @@ public:
   //static_assert(check_duplicates<Kinds ..., Kinds ...>(), "duplicates!");
 
   template<typename Kind> struct make_pizza {
-      static_assert(check_duplicates<Kind ..., Kind ...>() == 1, "wtf");
+      static_assert(check_duplicates<Kinds ..., Kinds ...>() == 1, "wtf");
       static_assert(count_kind<Kind, Kinds ...>() == 1, "There is no such a pizza name in menu!");
       using type = Pizza<(std::is_same<Kind, Kinds>::value ? default_slices_count : 0) ...>;
    };
